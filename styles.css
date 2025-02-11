@@ -1,0 +1,89 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #FFB6C1; /* Light pink background */
+    color: #D85085; /* Darker pink text color */
+    text-align: center;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    margin-top: 100px;
+}
+
+.main-title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+.question {
+    font-size: 24px;
+    margin-bottom: 40px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+button {
+    font-size: 20px;
+    padding: 15px 30px;
+    border: none;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.2s ease;
+}
+
+.yes-button {
+    background-color: #FF69B4;
+    color: white;
+}
+
+.no-button {
+    background-color: #FF6347;
+    color: white;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+.celebration-screen {
+    display: none;
+    margin-top: 50px;
+    background-color: #fff0f5;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+}
+
+.celebration-message {
+    font-size: 24px;
+    color: #ff1493;
+}
+
+.celebration-gif {
+    margin-top: 20px;
+    width: 400px;
+    height: auto;
+}
+
+/* Back button styling */
+.back-button {
+    margin-top: 20px;
+    padding: 15px 30px;
+    font-size: 18px;
+    background-color: #FF69B4;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.back-button:hover {
+    transform: scale(1.1);
+}
