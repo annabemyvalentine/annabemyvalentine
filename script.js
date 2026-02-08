@@ -1,65 +1,102 @@
-// Handle Yes button click
-document.getElementById("yes-button").addEventListener("click", function() {
-    document.querySelector(".container").style.display = "none";
-    document.getElementById("celebration").style.display = "block";
-    hideButtons(); // Hide all buttons when celebration page is shown
+const noBtn = document.getElementById("noBtn");
+const yesBtn = document.getElementById("yesBtn");
+const card = document.getElementById("main-card");
+const celebration = document.getElementById("celebration");
+const restartBtn = document.getElementById("restartBtn");
+
+let mouse = {x:0,y:0};
+document.addEventListener("mousemove", e=>{
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
 });
 
-// Handle No button hover (random movement)
-document.getElementById("no-button").addEventListener("mouseover", function() {
-    // Reset the transform property before applying new random movement
-    this.style.transform = 'none'; // Resets any previous transform
 
-    const randomX = Math.floor(Math.random() * 100) - 50; // Random move in the x-direction (50px)
-    const randomY = Math.floor(Math.random() * 100) - 50; // Random move in the y-direction (50px)
+// ❤️ YES CLICK
+yesBtn.onclick = ()=>{
+    card.style.transform="translate(-50%,-60%) scale(.7)";
+    card.style.opacity="0";
+    celebration.classList.add("show");
+    confettiExplosion();
+};
 
-    // Apply the new random transformation
-    this.style.transform = `translate(${randomX}px, ${randomY}px)`;
-});
 
-// Handle No button click (create 5-10 new Yes buttons at random positions)
-document.getElementById("no-button").addEventListener("click", function() {
-    // Hide the No button after it is clicked
-    this.style.display = "none";
+// 🏃‍♂️ SUPER DRAMATIC NO BUTTON AI
+let velocity = {x:0,y:0};
+function animateNoButton(){
+    const rect = noBtn.getBoundingClientRect();
 
-    // Create between 5 and 10 new Yes buttons
-    const numberOfButtons = Math.floor(Math.random() * 6) + 5; // 5-10 buttons
-    for (let i = 0; i < numberOfButtons; i++) {
-        const newYesButton = document.createElement("button");
-        newYesButton.textContent = "Yes";
-        newYesButton.classList.add("yes-button");
+    const dx = rect.left + rect.width/2 - mouse.x;
+    const dy = rect.top + rect.height/2 - mouse.y;
+    const dist = Math.sqrt(dx*dx + dy*dy);
 
-        // Set the random position of the new Yes button
-        const randomX = Math.random() * window.innerWidth - 100; // Random x position
-        const randomY = Math.random() * window.innerHeight - 50; // Random y position
-        newYesButton.style.position = "absolute";
-        newYesButton.style.left = `${randomX}px`;
-        newYesButton.style.top = `${randomY}px`;
+    if(dist < 220){
+        velocity.x += dx/dist * 2.5;
+        velocity.y += dy/dist * 2.5;
 
-        // Add the new Yes button to the body
-        document.body.appendChild(newYesButton);
-
-        // Add functionality to the new Yes button
-        newYesButton.addEventListener("click", function() {
-            document.querySelector(".container").style.display = "none";
-            document.getElementById("celebration").style.display = "block";
-            hideButtons(); // Hide all buttons when celebration page is shown
-        });
+        // squish stretch animation 😄
+        noBtn.style.transform = "scale(1.2,.8)";
+        setTimeout(()=>noBtn.style.transform="scale(1)",100);
     }
-});
 
-// Handle Back button click (navigate back to index.html)
-document.getElementById("back-button").addEventListener("click", function() {
-    window.location.href = "index.html"; // Redirect back to the index page
-});
+    velocity.x *= .92;
+    velocity.y *= .92;
 
-// Function to hide all buttons except for the Back button
-function hideButtons() {
-    const allButtons = document.querySelectorAll("button");
-    allButtons.forEach(button => {
-        // Only hide the buttons that are not the Back button
-        if (button.id !== "back-button") {
-            button.style.display = "none";
-        }
-    });
+    noBtn.style.left = (noBtn.offsetLeft + velocity.x) + "px";
+    noBtn.style.top = (noBtn.offsetTop + velocity.y) + "px";
+
+    requestAnimationFrame(animateNoButton);
 }
+animateNoButton();
+
+
+// 😈 TAUNT TEXT
+const taunts=["No","Are you sure?","Really?","Think again","Don't do it"];
+setInterval(()=>{
+    noBtn.textContent = taunts[Math.floor(Math.random()*taunts.length)];
+},2000);
+
+
+// 💀 IF NO IS CLICKED = YES APOCALYPSE
+noBtn.onclick = ()=>{
+    for(let i=0;i<120;i++){
+        spawnYes();
+    }
+};
+
+function spawnYes(){
+    const b=document.createElement("button");
+    b.innerText="YES ❤️";
+    b.className="yes-btn";
+    b.style.position="absolute";
+    b.style.left=Math.random()*window.innerWidth+"px";
+    b.style.top=Math.random()*window.innerHeight+"px";
+    b.onclick=()=>yesBtn.click();
+    document.body.appendChild(b);
+}
+
+
+// 🎉 CONFETTI
+function confettiExplosion(){
+    for(let i=0;i<120;i++){
+        const c=document.createElement("div");
+        c.style.position="absolute";
+        c.style.left="50%";
+        c.style.top="50%";
+        c.style.width="8px";
+        c.style.height="8px";
+        c.style.background=`hsl(${Math.random()*360},100%,60%)`;
+        c.style.borderRadius="50%";
+        document.body.appendChild(c);
+
+        const angle=Math.random()*2*Math.PI;
+        const dist= Math.random()*600;
+
+        c.animate([
+            {transform:"translate(-50%,-50%)"},
+            {transform:`translate(${Math.cos(angle)*dist}px,${Math.sin(angle)*dist}px)`}
+        ],{duration:1400, easing:"cubic-bezier(.2,.8,.2,1)"});
+    }
+}
+
+restartBtn.onclick=()=>location.reload();
+
