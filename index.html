@@ -1,28 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Will You Be My Valentine?</title>
-    <link rel="stylesheet" href="styles.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Will You Be My Valentine?</title>
+<link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
-    <div class="container">
-        <h1 class="main-title">Dear Anna Mae Barbee,</h1>
-        <p class="question">Will you be my Valentine?</p>
-        <div class="buttons">
-            <button class="yes-button" id="yes-button">Yes</button>
-            <button class="no-button" id="no-button">No</button>
-        </div>
-    </div>
 
-    <div id="celebration" class="celebration-screen">
-        <h2 class="celebration-message">Yay! I can't wait to see you and celebrate together. I love you. -Brenden</h2>
-        <img src="2665eedf2100e60848d7302e8a7ee7d6.gif" alt="Celebration Gif" class="celebration-gif">
-        <!-- Back button -->
-        <button class="back-button" id="back-button">Back</button>
-    </div>
+<div class="bg-hearts"></div>
 
-    <script src="script.js"></script>
+<div class="card" id="main-card">
+    <h1 class="title">Dear Anna Mae Barbee</h1>
+    <p class="subtitle">Will you be my Valentine?</p>
+
+    <div class="buttons">
+        <button class="yes-btn" id="yesBtn">Yes</button>
+        <button class="no-btn" id="noBtn">No</button>
+    </div>
+</div>
+
+<div class="celebration" id="celebration">
+    <h2>YAY!! ❤️</h2>
+    <p>I can't wait to celebrate with you.<br>I love you. – Brenden</p>
+    <img src="2665eedf2100e60848d7302e8a7ee7d6.gif">
+    <button id="restartBtn">Replay</button>
+</div>
+
+<script src="script.js"></script>
 </body>
 </html>
