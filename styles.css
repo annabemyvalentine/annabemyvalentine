@@ -1,7 +1,7 @@
 body {
     font-family: 'Arial', sans-serif;
-    background-color: #FFB6C1; /* Light pink background */
-    color: #D85085; /* Darker pink text color */
+    background-color: #fabbc5; /* Light pink background */
+    color: #d347bc; /* Darker pink text color */
     text-align: center;
     margin: 0;
     padding: 0;
@@ -62,8 +62,9 @@ button:hover {
 
 .celebration-message {
     font-size: 24px;
-    color: #ff1493;
+    color: #d347bc;
 }
+
 
 .celebration-gif {
     margin-top: 20px;
@@ -87,3 +88,4 @@ button:hover {
 .back-button:hover {
     transform: scale(1.1);
 }
+
