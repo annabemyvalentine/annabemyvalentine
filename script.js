@@ -57,11 +57,11 @@ document.getElementById("back-button").addEventListener("click", function() {
 function hideButtons() {
     const allButtons = document.querySelectorAll("button");
     allButtons.forEach(button => {
-        // Only hide the buttons that are not the Back button
         if (button.id !== "back-button") {
             button.style.display = "none";
-            
-document.addEventListener("DOMContentLoaded", function() {
+        }
+    });
+}
 
 /* =========================
    SAFE CAROUSEL (isolated)
@@ -141,3 +141,4 @@ window.addEventListener("load", function () {
     observer.observe(celebration, { attributes: true, attributeFilter: ["style"] });
 
 });
+
