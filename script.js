@@ -74,7 +74,10 @@ let currentIndex = 0;
 const images = document.querySelectorAll(".carousel-img");
 const visibleImages = 5;
 const totalImages = images.length;
-const imageWidth = 180; // image width + gap
+const imageWidth = 180;
+
+carousel.style.transform = "translateX(0px)";
+updateCarousel();
 
 function updateCarousel() {
     const offset = currentIndex * imageWidth;
@@ -159,6 +162,7 @@ hideButtons = function() {
         }
     });
 }
+
 
 
 
