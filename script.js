@@ -82,7 +82,7 @@ window.addEventListener("load", function () {
     const images = document.querySelectorAll(".carousel-img");
     const visibleImages = 5;
     const totalImages = images.length;
-    const imageWidth = 180;
+    const imageWidth = images[0].getBoundingClientRect().width + 20;
 
     function updateCarousel() {
         const offset = currentIndex * imageWidth;
@@ -141,4 +141,5 @@ window.addEventListener("load", function () {
     observer.observe(celebration, { attributes: true, attributeFilter: ["style"] });
 
 });
+
 
