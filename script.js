@@ -60,8 +60,76 @@ function hideButtons() {
         // Only hide the buttons that are not the Back button
         if (button.id !== "back-button") {
             button.style.display = "none";
+
+/* =========================
+   CAROUSEL FUNCTIONALITY
+   ========================= */
+
+const carousel = document.getElementById("carousel");
+const leftArrow = document.getElementById("carousel-left");
+const rightArrow = document.getElementById("carousel-right");
+const carouselWrapper = document.querySelector(".carousel-wrapper");
+
+// Arrow navigation
+leftArrow.addEventListener("click", () => {
+    carousel.scrollBy({ left: -400, behavior: "smooth" });
+});
+
+rightArrow.addEventListener("click", () => {
+    carousel.scrollBy({ left: 400, behavior: "smooth" });
+});
+
+// Click + drag scrolling (grab to swipe)
+let isDown = false;
+let startX;
+let scrollLeft;
+
+carousel.addEventListener("mousedown", (e) => {
+    isDown = true;
+    startX = e.pageX - carousel.offsetLeft;
+    scrollLeft = carousel.scrollLeft;
+});
+
+carousel.addEventListener("mouseleave", () => {
+    isDown = false;
+});
+
+carousel.addEventListener("mouseup", () => {
+    isDown = false;
+});
+
+carousel.addEventListener("mousemove", (e) => {
+    if (!isDown) return;
+    e.preventDefault();
+    const x = e.pageX - carousel.offsetLeft;
+    const walk = (x - startX) * 2;
+    carousel.scrollLeft = scrollLeft - walk;
+});
+
+// Touch support (mobile swipe)
+carousel.addEventListener("touchstart", (e) => {
+    startX = e.touches[0].pageX;
+    scrollLeft = carousel.scrollLeft;
+});
+
+carousel.addEventListener("touchmove", (e) => {
+    const x = e.touches[0].pageX;
+    const walk = (x - startX) * 2;
+    carousel.scrollLeft = scrollLeft - walk;
+});
+
+// Hide carousel when buttons are hidden (hooks into existing logic)
+const originalHideButtons = hideButtons;
+hideButtons = function() {
+    originalHideButtons();
+    if (carouselWrapper) {
+        carouselWrapper.style.display = "none";
+    }
+};
+
         }
     });
 }
+
 
 
