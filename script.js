@@ -82,6 +82,9 @@ window.addEventListener("load", function () {
     const images = document.querySelectorAll(".carousel-img");
     const totalImages = images.length;
     const imageWidth = images[0].getBoundingClientRect().width + 20;
+    // FORCE carousel strip to be wide enough for all images
+    carousel.style.width = `${imageWidth * totalImages}px`;
+
     function getVisibleImages() {
     const viewport = document.querySelector(".carousel-viewport");
     const viewportWidth = viewport.getBoundingClientRect().width;
@@ -151,6 +154,7 @@ window.addEventListener("load", function () {
     observer.observe(celebration, { attributes: true, attributeFilter: ["style"] });
 
 });
+
 
 
 
