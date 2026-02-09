@@ -95,8 +95,8 @@ button:hover {
    ========================= */
 
 .carousel-wrapper {
-    width: 90%;
-    max-width: 900px;
+    width: 900px;
+    max-width: 90vw;
     margin: 40px auto;
     position: relative;
     display: flex;
@@ -140,3 +140,4 @@ button:hover {
     width: 900px;           /* shows ~5 images */
     overflow: hidden;
 }
+
