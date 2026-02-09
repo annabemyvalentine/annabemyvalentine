@@ -63,14 +63,20 @@ function hideButtons() {
             
 document.addEventListener("DOMContentLoaded", function() {
 
-    /* =========================
-       CAROUSEL FUNCTIONALITY (v2 – sliding)
-       ========================= */
+/* =========================
+   SAFE CAROUSEL (isolated)
+   ========================= */
+
+window.addEventListener("load", function () {
 
     const carousel = document.getElementById("carousel");
     const leftArrow = document.getElementById("carousel-left");
     const rightArrow = document.getElementById("carousel-right");
     const carouselWrapper = document.querySelector(".carousel-wrapper");
+    const celebration = document.getElementById("celebration");
+
+    // If carousel doesn't exist, exit safely (prevents crashes)
+    if (!carousel) return;
 
     let currentIndex = 0;
     const images = document.querySelectorAll(".carousel-img");
@@ -78,15 +84,13 @@ document.addEventListener("DOMContentLoaded", function() {
     const totalImages = images.length;
     const imageWidth = 180;
 
-    carousel.style.transform = "translateX(0px)";
-    updateCarousel();
-
     function updateCarousel() {
         const offset = currentIndex * imageWidth;
         carousel.style.transform = `translateX(-${offset}px)`;
         carousel.style.transition = "transform 0.5s ease";
     }
 
+    // Arrow buttons
     rightArrow.addEventListener("click", () => {
         if (currentIndex < totalImages - visibleImages) {
             currentIndex++;
@@ -101,6 +105,7 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 
+    // Dragging
     let isDragging = false;
     let startX = 0;
     let startTranslate = 0;
@@ -126,13 +131,13 @@ document.addEventListener("DOMContentLoaded", function() {
         carousel.style.transform = `translateX(${startTranslate + dx}px)`;
     });
 
-    // hide with celebration (hook into existing function)
-    const originalHideButtons = hideButtons;
-    hideButtons = function() {
-        originalHideButtons();
-        if (carouselWrapper) {
+    // Hide carousel when celebration appears (safe observer)
+    const observer = new MutationObserver(() => {
+        if (celebration.style.display === "block") {
             carouselWrapper.style.display = "none";
         }
-    };
+    });
+
+    observer.observe(celebration, { attributes: true, attributeFilter: ["style"] });
 
 });
