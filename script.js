@@ -80,9 +80,14 @@ window.addEventListener("load", function () {
 
     let currentIndex = 0;
     const images = document.querySelectorAll(".carousel-img");
-    const visibleImages = 5;
     const totalImages = images.length;
     const imageWidth = images[0].getBoundingClientRect().width + 20;
+    function getVisibleImages() {
+    const viewport = document.querySelector(".carousel-viewport");
+    const viewportWidth = viewport.getBoundingClientRect().width;
+    return viewportWidth / imageWidth;
+}
+
 
     function updateCarousel() {
         const offset = currentIndex * imageWidth;
@@ -92,11 +97,13 @@ window.addEventListener("load", function () {
 
     // Arrow buttons
     rightArrow.addEventListener("click", () => {
+        const visibleImages = getVisibleImages();
         if (currentIndex < totalImages - visibleImages) {
             currentIndex++;
             updateCarousel();
         }
     });
+
 
     leftArrow.addEventListener("click", () => {
         if (currentIndex > 0) {
@@ -104,6 +111,7 @@ window.addEventListener("load", function () {
             updateCarousel();
         }
     });
+
 
     // Dragging
     let isDragging = false;
@@ -121,7 +129,9 @@ window.addEventListener("load", function () {
         if (!isDragging) return;
         isDragging = false;
         currentIndex = Math.round(-parseInt(carousel.style.transform.replace(/[^0-9\-.,]/g, '')) / imageWidth);
+        const visibleImages = getVisibleImages();
         currentIndex = Math.max(0, Math.min(currentIndex, totalImages - visibleImages));
+
         updateCarousel();
     });
 
@@ -141,5 +151,6 @@ window.addEventListener("load", function () {
     observer.observe(celebration, { attributes: true, attributeFilter: ["style"] });
 
 });
+
 
 
