@@ -60,110 +60,79 @@ function hideButtons() {
         // Only hide the buttons that are not the Back button
         if (button.id !== "back-button") {
             button.style.display = "none";
+            
+document.addEventListener("DOMContentLoaded", function() {
 
-/* =========================
-   CAROUSEL FUNCTIONALITY (v2 – sliding)
-   ========================= */
+    /* =========================
+       CAROUSEL FUNCTIONALITY (v2 – sliding)
+       ========================= */
 
-const carousel = document.getElementById("carousel");
-const leftArrow = document.getElementById("carousel-left");
-const rightArrow = document.getElementById("carousel-right");
-const carouselWrapper = document.querySelector(".carousel-wrapper");
+    const carousel = document.getElementById("carousel");
+    const leftArrow = document.getElementById("carousel-left");
+    const rightArrow = document.getElementById("carousel-right");
+    const carouselWrapper = document.querySelector(".carousel-wrapper");
 
-let currentIndex = 0;
-const images = document.querySelectorAll(".carousel-img");
-const visibleImages = 5;
-const totalImages = images.length;
-const imageWidth = 180;
+    let currentIndex = 0;
+    const images = document.querySelectorAll(".carousel-img");
+    const visibleImages = 5;
+    const totalImages = images.length;
+    const imageWidth = 180;
 
-carousel.style.transform = "translateX(0px)";
-updateCarousel();
-
-function updateCarousel() {
-    const offset = currentIndex * imageWidth;
-    carousel.style.transform = `translateX(-${offset}px)`;
-    carousel.style.transition = "transform 0.5s ease";
-}
-
-// Arrow buttons
-rightArrow.addEventListener("click", () => {
-    if (currentIndex < totalImages - visibleImages) {
-        currentIndex++;
-        updateCarousel();
-    }
-});
-
-leftArrow.addEventListener("click", () => {
-    if (currentIndex > 0) {
-        currentIndex--;
-        updateCarousel();
-    }
-});
-
-
-// 🖱️ DRAG / SWIPE SUPPORT
-let isDragging = false;
-let startX = 0;
-let startTranslate = 0;
-
-carousel.addEventListener("mousedown", (e) => {
-    isDragging = true;
-    startX = e.clientX;
-    startTranslate = -currentIndex * imageWidth;
-    carousel.style.transition = "none";
-});
-
-document.addEventListener("mouseup", () => {
-    if (!isDragging) return;
-    isDragging = false;
-
-    // snap to nearest image
-    currentIndex = Math.round(-parseInt(carousel.style.transform.replace(/[^0-9\-.,]/g, '')) / imageWidth);
-    currentIndex = Math.max(0, Math.min(currentIndex, totalImages - visibleImages));
+    carousel.style.transform = "translateX(0px)";
     updateCarousel();
-});
 
-document.addEventListener("mousemove", (e) => {
-    if (!isDragging) return;
-    const dx = e.clientX - startX;
-    carousel.style.transform = `translateX(${startTranslate + dx}px)`;
-});
-
-
-// 📱 TOUCH SUPPORT
-carousel.addEventListener("touchstart", (e) => {
-    startX = e.touches[0].clientX;
-    startTranslate = -currentIndex * imageWidth;
-    carousel.style.transition = "none";
-});
-
-carousel.addEventListener("touchmove", (e) => {
-    const dx = e.touches[0].clientX - startX;
-    carousel.style.transform = `translateX(${startTranslate + dx}px)`;
-});
-
-carousel.addEventListener("touchend", () => {
-    currentIndex = Math.round(-parseInt(carousel.style.transform.replace(/[^0-9\-.,]/g, '')) / imageWidth);
-    currentIndex = Math.max(0, Math.min(currentIndex, totalImages - visibleImages));
-    updateCarousel();
-});
-
-
-// Hide carousel when celebration shows (hook into existing function)
-const originalHideButtons = hideButtons;
-hideButtons = function() {
-    originalHideButtons();
-    if (carouselWrapper) {
-        carouselWrapper.style.display = "none";
+    function updateCarousel() {
+        const offset = currentIndex * imageWidth;
+        carousel.style.transform = `translateX(-${offset}px)`;
+        carousel.style.transition = "transform 0.5s ease";
     }
-};
 
-
+    rightArrow.addEventListener("click", () => {
+        if (currentIndex < totalImages - visibleImages) {
+            currentIndex++;
+            updateCarousel();
         }
     });
-}
 
+    leftArrow.addEventListener("click", () => {
+        if (currentIndex > 0) {
+            currentIndex--;
+            updateCarousel();
+        }
+    });
 
+    let isDragging = false;
+    let startX = 0;
+    let startTranslate = 0;
 
+    carousel.addEventListener("mousedown", (e) => {
+        isDragging = true;
+        startX = e.clientX;
+        startTranslate = -currentIndex * imageWidth;
+        carousel.style.transition = "none";
+    });
 
+    document.addEventListener("mouseup", () => {
+        if (!isDragging) return;
+        isDragging = false;
+        currentIndex = Math.round(-parseInt(carousel.style.transform.replace(/[^0-9\-.,]/g, '')) / imageWidth);
+        currentIndex = Math.max(0, Math.min(currentIndex, totalImages - visibleImages));
+        updateCarousel();
+    });
 
+    document.addEventListener("mousemove", (e) => {
+        if (!isDragging) return;
+        const dx = e.clientX - startX;
+        carousel.style.transform = `translateX(${startTranslate + dx}px)`;
+    });
+
+    // hide with celebration (hook into existing function)
+    const originalHideButtons = hideButtons;
+    hideButtons = function() {
+        originalHideButtons();
+        if (carouselWrapper) {
+            carouselWrapper.style.display = "none";
+        }
+    };
+
+});
