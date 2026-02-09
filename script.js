@@ -10,8 +10,8 @@ document.getElementById("no-button").addEventListener("mouseover", function() {
     // Reset the transform property before applying new random movement
     this.style.transform = 'none'; // Resets any previous transform
 
-    const randomX = Math.floor(Math.random() * 100) - 75; // Random move in the x-direction (75px)
-    const randomY = Math.floor(Math.random() * 100) - 75; // Random move in the y-direction (75px)
+    const randomX = Math.floor(Math.random() * 100) - 100; // Random move in the x-direction (75px)
+    const randomY = Math.floor(Math.random() * 100) - 100; // Random move in the y-direction (75px)
 
     // Apply the new random transformation
     this.style.transform = `translate(${randomX}px, ${randomY}px)`;
@@ -23,7 +23,7 @@ document.getElementById("no-button").addEventListener("click", function() {
     this.style.display = "none";
 
     // Create between 5 and 10 new Yes buttons
-    const numberOfButtons = Math.floor(Math.random() * 6) + 15; // 5-10 buttons
+    const numberOfButtons = Math.floor(Math.random() * 20) + 20; // 5-10 buttons
     for (let i = 0; i < numberOfButtons; i++) {
         const newYesButton = document.createElement("button");
         newYesButton.textContent = "Yes";
@@ -63,4 +63,5 @@ function hideButtons() {
         }
     });
 }
+
 
