@@ -89,3 +89,47 @@ button:hover {
     transform: scale(1.1);
 }
 
+
+/* =========================
+   CAROUSEL STYLES (ADDED)
+   ========================= */
+
+.carousel-wrapper {
+    width: 90%;
+    max-width: 900px;
+    margin: 40px auto;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel {
+    display: flex;
+    overflow: hidden;
+    gap: 20px;
+    scroll-behavior: smooth;
+    cursor: grab;
+}
+
+.carousel:active {
+    cursor: grabbing;
+}
+
+.carousel-img {
+    width: 160px;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 15px;
+    flex-shrink: 0;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.carousel-arrow {
+    font-size: 30px;
+    padding: 10px 15px;
+    background-color: #FF69B4;
+    color: white;
+    border-radius: 10px;
+    margin: 10px;
+}
